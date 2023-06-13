@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .todo-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .todo-item span {
+            flex-grow: 1;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div id="todo-list"></div>
+        <button class="btn" onclick="addTask()">Add New Task</button>
+    </div>
+
+    <script>
+        function addTask() {
+            var task = prompt("Enter a new task:");
+            if (task !== null && task !== "") {
+                var listItem = document.createElement("div");
+                listItem.className = "todo-item";
+                listItem.innerHTML = `
+                    <input type="checkbox" onclick="toggleTask(this)">
+                    <span>${task}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+                document.getElementById("todo-list").appendChild(listItem);
+            }
+        }
+
+        function toggleTask(checkbox) {
+            var task = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                task.style.textDecoration = "line-through";
+                task.style.color = "#999";
+            } else {
+                task.style.textDecoration = "none";
+                task.style.color = "#333";
+            }
+        }
+
+        function removeTask(button) {
+            var listItem = button.parentNode;
+            var todoList = document.getElementById("todo-list");
+            todoList.removeChild(listItem);
+        }
+    </script>
+</body>
+</html>
